@@ -1,5 +1,5 @@
-import Menu from "./Menu"
-import Contenido from "./Contenido"
+import Menu from "./components/Menu"
+import Contenido from "./components/Contenido"
 import "./PanelControl.css"
 
 const PanelControl =()=> {

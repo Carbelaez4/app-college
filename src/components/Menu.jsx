@@ -9,6 +9,7 @@ const Menu=()=>{
                     <ul>
                         <li>Estudiantes</li>
                         <li>Profesores</li>
+                        <li>Inicio Sesion</li>
                     </ul>
                 </nav>
             </aside>
