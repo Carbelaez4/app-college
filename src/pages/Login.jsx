@@ -1,97 +1,88 @@
-import { useEffect, useState } from 'react'
-import {usuarios} from '../services/database.js'
-import './Login.css'
-import { alertaError, alertaRedireccion, generarToken } from '../helpers/funciones'
-import { useNavigate } from 'react-router-dom'
-let apiUsuario ='https://back-json-server-martes.onrender.com/usuarios'
+import { useSearchParams } from "react-router-dom";
+import "./Login.css";
+import { useState } from "react";
+import { alertaConfirmacion, alertaError } from "../Helper/funciones"; // esto es muy importante entenderlo
 
-function Login() {
-  const [getUser, setUser]= useState("");
-  const [getPassword, setPassword]= useState("");
-  const [getName, setName]= useState("");
-  const [getEmail, setEmail]= useState("");
-  const [usuarios, setUsuarios] = useState([]);/*Todos estos son los estados  */
-  let redireccion = useNavigate();
-  function getUsuarios(){
-    fetch(apiUsuario)
-      .then((response)=> response.json())
-      .then((data)=>setUsuarios(data))
-      .catch((error)=>console.log(error));
-  }
- 
-  useEffect(()=>{
-    getUsuarios()
-  },[]);/*recibe dos parametros una funcion flecha, y un arreglo vacio que esta arriba en el useState */
-  
-  
-  
-  function buscarUsuario(){
-    let usuarioEncontrado = usuarios.find((item)=> getUser == item.usuario && getPassword == item.contrasena)
-    return usuarioEncontrado
-  }
+const Login = () => {
+  const [getUsuario, setUsuario] = useState("");
+  const [getPassword, setPassword] = useState("");
+  const [getHoraLogin, setHoraLogin] = useState(null);
 
-  function iniciarSesion(){
-    if(buscarUsuario()){
-      let token = generarToken();
-      localStorage.setItem("token",token);
-      localStorage.setItem("usuario",JSON.stringify(buscarUsuario()));
-      alertaRedireccion(redireccion, "Bienvenido al sistem", '/home')
+  function inicioSesion() {
+    if (getUsuario === "admin" && getPassword === "admin") {
+      alertaConfirmacion();
+
+      let horaInicio = new Date();
+      console.log(horaInicio);
+      //   setHoraLogin(new Date().toLocaleDateString);
+      //   console.log(getHoraLogin);
     } else {
-      alertaError()
-    }
-
-  }
-
-  function registrarUsuario(){
-    let auth = usuarios.some((item)=>item.correo==getEmail || item.usuario==getUser)
-    if(auth){
-      alertaError()
-    }else{
-      let nuevoUsuario ={
-        nombre: getName,
-        correo: getEmail,
-        usuario: getUser,
-        contrasena: getPassword,
-
-      }
-      fetch(apiUsuario,{
-        method:"POST",
-        body: JSON.stringify(nuevoUsuario),
-      })/*le paso un segundo parametro objeto tipo method psot */
+      alertaError();
     }
   }
-  
+
   return (
-    <div className="container">
-      <input id="signup_toggle" type="checkbox" />
-      <form className="form">
-        <div className="form_front">
-          <div className="form_details">Login</div>
-          <input onChange={(e)=>setUser(e.target.value)} type="text" className="input" placeholder="Username" />
-          <input onChange={(e)=> setPassword(e.target.value)}  type="text" className="input" placeholder="Password" />
-          <button type='button' onClick={iniciarSesion} className="btn">Login</button>
-          <span className="switch">Don't have an account?
-            <label for="signup_toggle" className="signup_tog">
-              Sign Up
-            </label>
-          </span>
-        </div>
-        <div className="form_back">
-          <div className="form_details">SignUp</div>
-          <input onChange={(e)=>setName(e.target.value)} type="text" className="input" placeholder="Firstname" />
-          <input onChange={(e)=>setUser(e.target.value)} type="text" className="input" placeholder="Username" />
-          <input onChange={(e)=>setPassword(e.target.value)} type="text" className="input" placeholder="Password" />
-          <input onChange={(e)=>setEmail(e.target.value)} type="text" className="input" placeholder="Email" />
-          <button type="button" onClick={registrarUsuario} className="btn">Signup</button>
-          <span className="switch">Already have an account?
-            <label for="signup_toggle" className="signup_tog">
-              Sign In
-            </label>
-          </span>
-        </div>
-      </form>
+    <div className="wrapper">
+      <div className="card-switch">
+        <label className="switch">
+          <input type="checkbox" className="toggle" />
+          <span className="slider" />
+          <span className="card-side" />
+          <div className="flip-card__inner">
+            <div className="flip-card__front">
+              <div className="title">Log in</div>
+              <form className="flip-card__form">
+                <input
+                  onChange={(e) => setUsuario(e.target.value)}
+                  className="flip-card__input"
+                  name="email"
+                  placeholder="Email"
+                  type="text"
+                />
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="flip-card__input"
+                  name="password"
+                  placeholder="Password"
+                  type="text"
+                />
+                <button
+                  type="button"
+                  onClick={inicioSesion}
+                  className="flip-card__btn"
+                >
+                  Let`s go!
+                </button>
+              </form>
+            </div>
+            <div className="flip-card__back">
+              <div className="title">Sign up</div>
+              <form className="flip-card__form">
+                <input
+                  className="flip-card__input"
+                  placeholder="Name"
+                  type="name"
+                />
+                <input
+                  className="flip-card__input"
+                  name="email"
+                  placeholder="Email"
+                  type="email"
+                />
+                <input
+                  className="flip-card__input"
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                />
+                <button className="flip-card__btn">Confirm!</button>
+              </form>
+            </div>
+          </div>
+        </label>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
