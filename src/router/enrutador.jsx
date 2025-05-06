@@ -1,9 +1,12 @@
 import Login from '../pages/Login';
-import Home from '../Home';
-import RutaProtegida from '../components/RutaProtegida';
+import Menu from '../components/Menu'
 export let enrutador =[
     {
         path: '/',
-        element: <Login />,
+        element: <Menu />,
     },
+    {
+        path: '/login',
+        element: <Login />,
+    }
 ]

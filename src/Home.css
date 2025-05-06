@@ -1,12 +1,12 @@
-.panel-control{
+.home{
     width: 100%;
-    height: 100vh;/* viewd per height */
+    height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
 }
-.panel-control-aside{
+.home-aside{
     width: 100%;
     height: 25%;
     background-color:#123F6E;
@@ -20,7 +20,7 @@
     top: 0;
 }
 
-.panel-control-aside div{
+.home-aside div{
     width: 100px;
     height: 100px;
     background-color:white ;
@@ -29,14 +29,14 @@
     justify-content: center;
     align-items: center;
 }
-.panel-control-aside div img{
+.home-aside div img{
     width: 90% ;
     height: 90%;
     border-radius: 50%;
     border: solid 1px black ;
 
 }
-.panel-control-aside nav {
+.home-aside nav {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
     height: 60%;
 }
 
-.panel-control-aside nav ul{
+.home-aside nav ul{
     width: 100%;
     height: 100%;
     display: flex;
@@ -53,14 +53,17 @@
     list-style: none;
     gap:10px;
     flex-direction: row;
+  
     
 }
-.panel-control-aside nav ul li{
+.home-aside nav ul li {
     
-    color: white;
+    color: rgb(241, 235, 235);
+    text-decoration: none;
+   
 }
 
-.panel-control-section{
+.home-section{
     width: 70%;
     display: flex;
     justify-content:space-evenly;
@@ -75,9 +78,9 @@
 
 }
 
-.panel-control-card{
+.home-card{
     
-    height: 400px;
+    height: 400px;  
     display: flex;
     justify-content: space-between;
     align-items:center;

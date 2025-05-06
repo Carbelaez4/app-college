@@ -1,65 +1,64 @@
-import { useEffect, useState } from 'react'
-import {usuarios} from '../services/database.js'
-import './Login.css'
-import { alertaError, alertaRedireccion, generarToken } from '../helpers/funciones'
-import { useNavigate } from 'react-router-dom'
-let apiUsuario ='https://back-json-server-martes.onrender.com/usuarios'
+import { useState } from 'react';
+import { usuarios as usuariosDB } from '../services/database.js'; // renombrado
+import './Login.css';
+import { alertaError, alertaRedireccion, generarToken } from '../helpers/funciones.js';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [getUser, setUser]= useState("");
-  const [getPassword, setPassword]= useState("");
-  const [getName, setName]= useState("");
-  const [getEmail, setEmail]= useState("");
-  const [usuarios, setUsuarios] = useState([]);/*Todos estos son los estados  */
+  const [getRol, setRol] = useState("estudiante");
+  const [getUser, setUser] = useState("");
+  const [getPassword, setPassword] = useState("");
+  const [getName, setName] = useState("");
+  const [getEmail, setEmail] = useState("");
+
   let redireccion = useNavigate();
-  function getUsuarios(){
-    fetch(apiUsuario)
-      .then((response)=> response.json())
-      .then((data)=>setUsuarios(data))
-      .catch((error)=>console.log(error));
-  }
- 
-  useEffect(()=>{
-    getUsuarios()
-  },[]);/*recibe dos parametros una funcion flecha, y un arreglo vacio que esta arriba en el useState */
-  
-  
-  
-  function buscarUsuario(){
-    let usuarioEncontrado = usuarios.find((item)=> getUser == item.usuario && getPassword == item.contrasena)
-    return usuarioEncontrado
+
+  function buscarUsuario() {
+    return usuariosDB.find(
+      (item) => getUser === item.usuario && getPassword === item.contrasena
+    );
   }
 
-  function iniciarSesion(){
-    if(buscarUsuario()){
-      let token = generarToken();
-      localStorage.setItem("token",token);
-      localStorage.setItem("usuario",JSON.stringify(buscarUsuario()));
-      alertaRedireccion(redireccion, "Bienvenido al sistem", '/home')
+  function iniciarSesion() {
+    const usuario = buscarUsuario();
+    if (usuario) {
+      const token = generarToken();
+      localStorage.setItem("token", token);
+      localStorage.setItem("usuario", JSON.stringify(usuario));
+
+      if (usuario.rol === "profesor") {
+        alertaRedireccion(redireccion, "Bienvenido, profesor", "/teacher");
+      } else if (usuario.rol === "estudiante") {
+        alertaRedireccion(redireccion, "Bienvenido, estudiante", "/student");
+      } else {
+        alertaRedireccion(redireccion, "Bienvenido al sistema", "/home");
+      }
     } else {
-      alertaError()
+      alertaError();
     }
-
   }
 
-  function registrarUsuario(){
-    let auth = usuarios.some((item)=>item.correo==getEmail || item.usuario==getUser)
-    if(auth){
-      alertaError()
-    }else{
-      let nuevoUsuario ={
+  function registrarUsuario() {
+    let auth = usuariosDB.some(
+      (item) => item.correo === getEmail || item.usuario === getUser
+    );
+    if (auth) {
+      alertaError();
+    } else {
+      let nuevoUsuario = {
         nombre: getName,
         correo: getEmail,
         usuario: getUser,
         contrasena: getPassword,
-
-      }
-      fetch(apiUsuario,{
-        method:"POST",
-        body: JSON.stringify(nuevoUsuario),
-      })/*le paso un segundo parametro objeto tipo method psot */
+        rol: getRol,
+      };
+      console.log("Usuario registrado:", nuevoUsuario);
+      
     }
   }
+
+
+
   
   return (
     <div className="container">
@@ -82,6 +81,11 @@ function Login() {
           <input onChange={(e)=>setUser(e.target.value)} type="text" className="input" placeholder="Username" />
           <input onChange={(e)=>setPassword(e.target.value)} type="text" className="input" placeholder="Password" />
           <input onChange={(e)=>setEmail(e.target.value)} type="text" className="input" placeholder="Email" />
+          <select className="input" onChange={(e) => setRol(e.target.value)}>
+          <option value="estudiante">Estudiante</option>
+          <option value="profesor">Profesor</option>
+          </select>
+
           <button type="button" onClick={registrarUsuario} className="btn">Signup</button>
           <span className="switch">Already have an account?
             <label for="signup_toggle" className="signup_tog">
@@ -92,6 +96,6 @@ function Login() {
       </form>
     </div>
   )
-}
 
-export default Login
+}
+export default Login;
