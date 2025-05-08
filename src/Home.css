@@ -86,3 +86,25 @@
     align-items:center;
     flex-direction:row;
 }
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    margin-top: 150px; /* Asegura espacio debajo del menú */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* puedes usar center si quieres también centrar verticalmente */
+    padding: 20px;
+    min-height: calc(100vh - 150px); /* ajusta según alto del menú */
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: white;
+  }
+  .nav-link:hover {
+    text-decoration: underline;
+  }
