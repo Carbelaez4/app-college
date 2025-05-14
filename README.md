@@ -2,7 +2,7 @@
 
 ###
 
-<p align="left">Carlos Arbelaez<br>Francis Leon</p>
+<p align="left"></p>
 
 ###
 
@@ -10,7 +10,7 @@
 
 ###
 
-<h2 align="left">Tecnologias Utilizadas:<br>React<br>Biblioteca principal para construir interfaces de usuario a partir de componentes reutilizables (*.jsx).<br><br>React Router DOM<br>Para la navegación entre páginas y manejo de rutas, incluyendo rutas protegidas (RutaProtegida.jsx, react-router-dom).<br><br>Vite<br>Herramienta moderna para el empaquetado de proyectos frontend. Más rápida que Webpack y optimizada para desarrollo con React.<br><br>JSX<br>Sintaxis utilizada para escribir componentes de React mezclando HTML y JavaScript.<br><br>CSS<br>Uso de archivos *.css para el estilo de componentes y páginas (Login.css, Home.css, index.css).<br>SweetAlert2<br>Librería de modales y alertas visuales (sweetalert2/ está presente). Útil para mostrar mensajes interactivos al usuario.<br><br>JavaScript <br>Toda la lógica del proyecto está escrita en JS moderno: funciones flecha, import/export, async/await, etc.<br><br>Funciones Helper Personalizadas<br>Ubicadas en helpers/funciones.js, permiten encapsular lógica de apoyo.</h2>
+<h1 align="left">Tecnologias Utilizadas:<br>React<br>Biblioteca principal para construir interfaces de usuario a partir de componentes reutilizables (*.jsx).<br><br>React Router DOM<br>Para la navegación entre páginas y manejo de rutas, incluyendo rutas protegidas (RutaProtegida.jsx, react-router-dom).<br><br>Vite<br>Herramienta moderna para el empaquetado de proyectos frontend. Más rápida que Webpack y optimizada para desarrollo con React.<br><br>JSX<br>Sintaxis utilizada para escribir componentes de React mezclando HTML y JavaScript.<br><br>CSS<br>Uso de archivos *.css para el estilo de componentes y páginas (Login.css, Home.css, index.css).<br>SweetAlert2<br>Librería de modales y alertas visuales (sweetalert2/ está presente). Útil para mostrar mensajes interactivos al usuario.<br><br>JavaScript <br>Toda la lógica del proyecto está escrita en JS moderno: funciones flecha, import/export, async/await, etc.<br><br>Funciones Helper Personalizadas<br>Ubicadas en helpers/funciones.js, permiten encapsular lógica de apoyo.Carlos Arbelaez 1037584068  <br>Francis Leon   1210961   fleonh@cesde.net<br>carbelaez@cesde.net</h1>
 
 ###
 
@@ -30,6 +30,6 @@
 
 ###
 
-<p align="left">Hello World!!</p>
+<p align="left">Carlos Arbelaez 1037584068  <br>Francis Leon   1210961   fleonh@cesde.net<br>carbelaez@cesde.net</p>
 
 ###
