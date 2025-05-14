@@ -30,6 +30,6 @@
 
 ###
 
-<p align="left">Carlos Arbelaez 1037584068  <br>Francis Leon   1210961   fleonh@cesde.net<br>carbelaez@cesde.net</p>
+<p align="left">Carlos Arbelaez 1037584068  <br>Francis Leon   1210961 <br>  fleonh@cesde.net<br>carbelaez@cesde.net</p>
 
 ###
