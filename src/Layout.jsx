@@ -1,6 +1,6 @@
 import Menu from "./components/Menu";
 import { Outlet } from "react-router-dom";
-import './Home.css'; // reutilizamos estilos definidos
+import './Home.css'; 
 
 export default function Layout() {
   return (

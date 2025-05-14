@@ -1,8 +1,13 @@
-import Contenido from './components/Contenido';
-import './Home.css';
+import Navbar from "./components/Navbar";
 
-function Home() {
-  return <Contenido />;
+export default function Home() {
+  return (
+    <div>
+      <Navbar />
+      <div style={{ marginLeft: '220px', padding: '1rem' }}>
+        <h1>Bienvenido </h1>
+        <p>Contenido privado.</p>
+      </div>
+    </div>
+  );
 }
-
-export default Home;

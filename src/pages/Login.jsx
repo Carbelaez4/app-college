@@ -22,18 +22,19 @@ function Login() {
   function iniciarSesion() {
     const usuario = buscarUsuario();
     if (usuario) {
-      const token = generarToken();
-      localStorage.setItem("token", token);
-      localStorage.setItem("usuario", JSON.stringify(usuario));
+  const token = generarToken();
+  localStorage.setItem("token", token);
+  localStorage.setItem("usuario", JSON.stringify(usuario));
 
-      if (usuario.rol === "profesor") {
-        alertaRedireccion(redireccion, "Bienvenido, profesor", "/teacher");
-      } else if (usuario.rol === "estudiante") {
-        alertaRedireccion(redireccion, "Bienvenido, estudiante", "/student");
-      } else {
-        alertaRedireccion(redireccion, "Bienvenido al sistema", "/home");
-      }
-    } else {
+  // Redirigir basado en rol o simplemente a /home
+  if (usuario.rol === "profesor") {
+    alertaRedireccion(redireccion, "Bienvenido, profesor", "/home");
+  } else if (usuario.rol === "estudiante") {
+    alertaRedireccion(redireccion, "Bienvenido, estudiante", "/home");
+  } else {
+    alertaRedireccion(redireccion, "Bienvenido al sistema", "/home");
+  }
+} else {
       alertaError();
     }
   }
