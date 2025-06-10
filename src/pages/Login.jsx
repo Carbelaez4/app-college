@@ -1,10 +1,16 @@
-import { useState } from 'react';
-import { usuarios as usuariosDB } from '../services/database.js'; // renombrado
+import { useState,useEffect } from 'react';
+import { usuarios as usuariosDB } from '../services/database.js'; 
+import { consultarUsuarios, agregarUsuario } from '../services/serviciosUsuarios.js';
+
 import './Login.css';
 import { alertaError, alertaRedireccion, generarToken } from '../helpers/funciones.js';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+
+
+  const [datosAPI, setDatosApi]=useState(null)
   const [getRol, setRol] = useState("estudiante");
   const [getUser, setUser] = useState("");
   const [getPassword, setPassword] = useState("");
@@ -13,9 +19,18 @@ function Login() {
 
   let redireccion = useNavigate();
 
+
+  useEffect(function(){
+    consultarUsuarios()
+    .then(function(respuesta){
+      console.log(respuesta)
+      setDatosApi(respuesta)
+    })
+  },[])
+
   function buscarUsuario() {
-    return usuariosDB.find(
-      (item) => getUser === item.usuario && getPassword === item.contrasena
+    return datosAPI.find(
+      (item) => getUser === item.name && getPassword === item.password
     );
   }
 
@@ -40,20 +55,26 @@ function Login() {
   }
 
   function registrarUsuario() {
-    let auth = usuariosDB.some(
-      (item) => item.correo === getEmail || item.usuario === getUser
+    let auth = datosAPI.some(
+      (item) => item.email === getEmail || item.name === getUser
     );
     if (auth) {
       alertaError();
     } else {
       let nuevoUsuario = {
-        nombre: getName,
-        correo: getEmail,
-        usuario: getUser,
-        contrasena: getPassword,
-        rol: getRol,
+        name: getName,
+        email: getEmail,
+        password: getPassword,
+        phone:"3225962363",
+        userType:"TEACHER"
       };
-      console.log("Usuario registrado:", nuevoUsuario);
+      agregarUsuario(nuevoUsuario)
+      .then(function(respuesta){
+         console.log("Usuario registrado:", nuevoUsuario);
+
+      })
+
+     
       
     }
   }
@@ -79,7 +100,6 @@ function Login() {
         <div className="form_back">
           <div className="form_details">SignUp</div>
           <input onChange={(e)=>setName(e.target.value)} type="text" className="input" placeholder="Firstname" />
-          <input onChange={(e)=>setUser(e.target.value)} type="text" className="input" placeholder="Username" />
           <input onChange={(e)=>setPassword(e.target.value)} type="text" className="input" placeholder="Password" />
           <input onChange={(e)=>setEmail(e.target.value)} type="text" className="input" placeholder="Email" />
           <select className="input" onChange={(e) => setRol(e.target.value)}>
